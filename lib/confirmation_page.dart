@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ConfirmationPage extends StatelessWidget {
-  final String name;
+  final String firstName;
+  final String lastName;
   final String email;
 
-  const ConfirmationPage({super.key, required this.name, required this.email});
+  const ConfirmationPage({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,7 @@ class ConfirmationPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Welcome, $name!", style: const TextStyle(fontSize: 20)),
+            Text("Welcome, $firstName $lastName!", style: const TextStyle(fontSize: 20)),
             Text("Your email: $email"),
             const SizedBox(height: 20),
             ElevatedButton(
