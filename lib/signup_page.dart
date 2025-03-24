@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
+import 'dart:developer';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -11,6 +12,21 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  void _submitForm() {
+    if (_formKey.currentState!.saveAndValidate()) {
+      final formData = _formKey.currentState!.value;
+      log('Form Submitted: $formData');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Signup complete.')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please complete all required fields')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,13 +104,7 @@ class _SignupPageState extends State<SignupPage> {
 
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.saveAndValidate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Signup complete.')),
-                      );
-                    }
-                  },
+                  onPressed: _submitForm,
                   child: const Text('Sign Up'),
                 ),
               ),
