@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'dart:developer';
+import 'confirmation_page.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -18,8 +19,15 @@ class _SignupPageState extends State<SignupPage> {
       final formData = _formKey.currentState!.value;
       log('Form Submitted: $formData');
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Signup complete.')),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ConfirmationPage(
+            firstName: formData['first_name'] ?? '',
+            lastName: formData['last_name'] ?? '',
+            email: formData['email'] ?? '',
+          ),
+        ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
